@@ -1,7 +1,6 @@
 using practice02.PSS.lisatsaturyan.Practice02;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace CollectionUserViewTest
+namespace ComparatorPropertyTest
 {
     [TestClass]
     public class ComparatorPropertyTests
@@ -65,14 +64,19 @@ namespace CollectionUserViewTest
         public void ComparatorProperty_ThrowsException_WhenPropertyNotFound()
         {
             // Arrange
-            var user1 = new UserView("3", "UserC", "Step1", "Category1", true);
-            var user2 = new UserView("1", "UserA", "Step1", "Category1", true);
+            var users = new List<UserView>
+            {
+                new UserView("3", "UserC", "Step1", "Category1", true),
+                new UserView("1", "UserA", "Step1", "Category1", true),
+                new UserView("2", "UserB", "Step1", "Category1", true)
+            };
+
             var comparator = new ComparatorProperty<UserView>("NonExistentProperty");
 
             // Act & Assert
             try
             {
-                comparator.Compare(user1, user2);
+                users.Sort(comparator);
                 Assert.Fail("Expected ArgumentException was not thrown.");
             }
             catch (ArgumentException ex)
