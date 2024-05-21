@@ -1,12 +1,13 @@
-﻿using System;
+﻿using practice02.PSS.lisatsaturyan.Practice02;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace practice02.PSS.lisatsaturyan.Practice02
+namespace PSS.username_student.Practice_02
 {
-    public class UserView : IUserView, IEquatable<UserView>, IEqualityComparer<UserView>
+    public class UserView : IUserView, IEquatable<UserView>, IEqualityComparer<UserView>, IComparable<UserView>
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -62,6 +63,35 @@ namespace practice02.PSS.lisatsaturyan.Practice02
         public static bool operator !=(UserView left, UserView right)
         {
             return !(left == right);
+        }
+
+        public int CompareTo(UserView other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+
+            return string.Compare(Id, other.Id, StringComparison.Ordinal);
+        }
+
+        public static bool operator <(UserView left, UserView right)
+        {
+            if (ReferenceEquals(left, null)) return !ReferenceEquals(right, null);
+            return left.CompareTo(right) < 0;
+        }
+
+        public static bool operator >(UserView left, UserView right)
+        {
+            return right < left;
+        }
+
+        public static bool operator <=(UserView left, UserView right)
+        {
+            return !(left > right);
+        }
+
+        public static bool operator >=(UserView left, UserView right)
+        {
+            return !(left < right);
         }
     }
 }
