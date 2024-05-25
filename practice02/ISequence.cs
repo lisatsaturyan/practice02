@@ -17,3 +17,4 @@ namespace practice02
         T this[int i] { get; set; }
     }
 }
+

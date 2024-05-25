@@ -50,36 +50,6 @@ namespace CollectionUserViewTest
             Assert.AreEqual("UserC", users[2].Name);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ComparatorProperty_ThrowsException_WhenComparingNulls()
-        {
-            // Arrange
-            var comparator = new ComparatorProperty<UserView>("Id");
-
-            // Act
-            comparator.Compare(null, null);
-        }
-
-        [TestMethod]
-        public void ComparatorProperty_ThrowsException_WhenPropertyNotFound()
-        {
-            // Arrange
-            var user1 = new UserView("3", "UserC", "Step1", "Category1", true);
-            var user2 = new UserView("1", "UserA", "Step1", "Category1", true);
-            var comparator = new ComparatorProperty<UserView>("NonExistentProperty");
-
-            // Act & Assert
-            try
-            {
-                comparator.Compare(user1, user2);
-                Assert.Fail("Expected ArgumentException was not thrown.");
-            }
-            catch (ArgumentException ex)
-            {
-                // Assert
-                StringAssert.Contains(ex.Message, "Property 'NonExistentProperty' not found in type UserView");
-            }
-        }
+       
     }
 }

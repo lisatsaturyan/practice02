@@ -7,105 +7,184 @@ namespace SequenceTest
 
 {
         [TestClass]
-        public class TestSequenceWalk
+        public class SequenceTests
         {
-            public class UsuarioView
+            [TestMethod]
+            public void Add_AddsItemToSequence()
             {
-                public string Name { get; set; }
-                public int Age { get; set; }
+                // Arrange
+                var sequence = new Sequence<int>();
 
-                public override bool Equals(object obj)
-                {
-                    return obj is UsuarioView view &&
-                           Name == view.Name &&
-                           Age == view.Age;
-                }
+                // Act
+                sequence.Add(1);
 
-                public override int GetHashCode()
-                {
-                    return System.HashCode.Combine(Name, Age);
-                }
+                // Assert
+                Assert.AreEqual(1, sequence.Count);
+                Assert.IsTrue(sequence.Contains(1));
             }
 
             [TestMethod]
-            public void TestDefaultTraversal()
+            public void Remove_RemovesItemFromSequence()
             {
-            var sequence = new Sequence<UsuarioView>();
-            var user1 = new UsuarioView { Name = "Alice", Age = 30 };
-            var user2 = new UsuarioView { Name = "Bob", Age = 25 };
-            var user3 = new UsuarioView { Name = "Charlie", Age = 35 };
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
 
-                sequence.Add(user1);
-                sequence.Add(user2);
-                sequence.Add(user3);
+                // Act
+                var removed = sequence.Remove(1);
 
-            var expected = new List<UsuarioView> { user3, user2, user1 };
-            CollectionAssert.AreEqual(expected, new List<UsuarioView>(sequence));
-        }
-
-        [TestMethod]
-            public void TestRecordoAdelante()
-            {
-            var sequence = new Sequence<UsuarioView>();
-            var user1 = new UsuarioView { Name = "Alice", Age = 30 };
-            var user2 = new UsuarioView { Name = "Bob", Age = 25 };
-            var user3 = new UsuarioView { Name = "Charlie", Age = 35 };
-
-            sequence.Add(user1);
-                sequence.Add(user2);
-                sequence.Add(user3);
-
-            var expected = new List<UsuarioView> { user3, user2, user1 };
-            CollectionAssert.AreEqual(expected, new List<UsuarioView>(sequence.RecordoAdelante));
-        }
-
-        [TestMethod]
-        public void TestBackTravel()
-        {
-            var sequence = new Sequence<UsuarioView>();
-            var user1 = new UsuarioView { Name = "Alice", Age = 30 };
-            var user2 = new UsuarioView { Name = "Bob", Age = 25 };
-            var user3 = new UsuarioView { Name = "Charlie", Age = 35 };
-
-            sequence.Add(user1);
-            sequence.Add(user2);
-            sequence.Add(user3);
-
-            var expected = new List<UsuarioView> { user3, user2, user1 };
-            CollectionAssert.AreEqual(expected, new List<UsuarioView>(sequence.BackTravel));
-        }
-
-
-        [TestMethod]
-            public void TestUpPath()
-            {
-                var sequence = new Sequence<UsuarioView>();
-                var user1 = new UsuarioView { Name = "Alice", Age = 30 };
-                var user2 = new UsuarioView { Name = "Bob", Age = 25 };
-                var user3 = new UsuarioView { Name = "Charlie", Age = 35 };
-
-                sequence.Add(user1);
-                sequence.Add(user2);
-                sequence.Add(user3);
-
-                var expected = new List<UsuarioView> { user2, user1, user3 };
-                CollectionAssert.AreEqual(expected, new List<UsuarioView>(sequence.UpPath));
+                // Assert
+                Assert.IsTrue(removed);
+                Assert.AreEqual(0, sequence.Count);
+                Assert.IsFalse(sequence.Contains(1));
             }
 
             [TestMethod]
-            public void TestDescendingPath()
+            public void Clear_RemovesAllItemsFromSequence()
             {
-                var sequence = new Sequence<UsuarioView>();
-                var user1 = new UsuarioView { Name = "Alice", Age = 30 };
-                var user2 = new UsuarioView { Name = "Bob", Age = 25 };
-                var user3 = new UsuarioView { Name = "Charlie", Age = 35 };
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
+                sequence.Add(2);
 
-                sequence.Add(user1);
-                sequence.Add(user2);
-                sequence.Add(user3);
+                // Act
+                sequence.Clear();
 
-                var expected = new List<UsuarioView> { user3, user1, user2 };
-                CollectionAssert.AreEqual(expected, new List<UsuarioView>(sequence.DescendingPath));
+                // Assert
+                Assert.AreEqual(0, sequence.Count);
+            }
+
+            [TestMethod]
+            public void Indexer_GetsAndSetsItems()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
+                sequence.Add(2);
+
+                // Act
+                sequence[1] = 3;
+
+                // Assert
+                Assert.AreEqual(3, sequence[1]);
+            }
+
+            [TestMethod]
+            public void Sort_SortsItemsUsingComparer()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(3);
+                sequence.Add(1);
+                sequence.Add(2);
+
+                // Act
+                sequence.Sort(Comparer<int>.Default);
+
+                // Assert
+                Assert.AreEqual(1, sequence[0]);
+                Assert.AreEqual(2, sequence[1]);
+                Assert.AreEqual(3, sequence[2]);
+            }
+
+            [TestMethod]
+            public void DefaultEnumerator_IteratesInReverseOrder()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
+                sequence.Add(2);
+                sequence.Add(3);
+
+                // Act
+                var result = new List<int>();
+                foreach (var item in sequence)
+                {
+                    result.Add(item);
+                }
+
+                // Assert
+                CollectionAssert.AreEqual(new List<int> { 3, 2, 1 }, result);
+            }
+
+            [TestMethod]
+            public void RecordoAdelante_IteratesInForwardOrder()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
+                sequence.Add(2);
+                sequence.Add(3);
+
+                // Act
+                var result = new List<int>();
+                foreach (var item in sequence.RecordoAdelante)
+                {
+                    result.Add(item);
+                }
+
+                // Assert
+                CollectionAssert.AreEqual(new List<int> { 1, 2, 3 }, result);
+            }
+
+            [TestMethod]
+            public void BackTravel_IteratesInReverseOrder()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
+                sequence.Add(2);
+                sequence.Add(3);
+
+                // Act
+                var result = new List<int>();
+                foreach (var item in sequence.BackTravel)
+                {
+                    result.Add(item);
+                }
+
+                // Assert
+                CollectionAssert.AreEqual(new List<int> { 3, 2, 1 }, result);
+            }
+
+            [TestMethod]
+            public void UpPath_IteratesInAscendingOrder()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(3);
+                sequence.Add(1);
+                sequence.Add(2);
+
+                // Act
+                var result = new List<int>();
+                foreach (var item in sequence.UpPath)
+                {
+                    result.Add(item);
+                }
+
+                // Assert
+                CollectionAssert.AreEqual(new List<int> { 1, 2, 3 }, result);
+            }
+
+            [TestMethod]
+            public void DescendingPath_IteratesInDescendingOrder()
+            {
+                // Arrange
+                var sequence = new Sequence<int>();
+                sequence.Add(1);
+                sequence.Add(3);
+                sequence.Add(2);
+
+                // Act
+                var result = new List<int>();
+                foreach (var item in sequence.DescendingPath)
+                {
+                    result.Add(item);
+                }
+
+                // Assert
+                CollectionAssert.AreEqual(new List<int> { 3, 2, 1 }, result);
             }
         }
     }

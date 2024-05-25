@@ -9,25 +9,26 @@ namespace practice02.PSS.lisatsaturyan.Practice02
 {
     public class ComparatorProperty<T> : IComparer<T>
     {
-        private readonly string _propertyName;
+        private readonly PropertyDescriptor _property;
 
         public ComparatorProperty(string propertyName)
         {
-            _propertyName = propertyName;
+            _property = GetProperty(propertyName)
+                ?? throw new ArgumentException($"Property '{propertyName}' not found on type {typeof(T).Name}");
         }
 
         public int Compare(T x, T y)
         {
-            if (x == null || y == null)
-                throw new ArgumentNullException("Cannot compare null objects");
+            if (x == null && y == null) return 0;
+            if (x == null) return -1;
+            if (y == null) return 1;
 
-            var property = GetProperty(_propertyName);
+            var valueX = _property.GetValue(x);
+            var valueY = _property.GetValue(y);
 
-            if (property == null)
-                throw new ArgumentException($"Property '{_propertyName}' not found in type {typeof(T).Name}");
-
-            var valueX = property.GetValue(x);
-            var valueY = property.GetValue(y);
+            if (valueX == null && valueY == null) return 0;
+            if (valueX == null) return -1;
+            if (valueY == null) return 1;
 
             if (!Comparable(valueX) || !Comparable(valueY))
                 throw new ArgumentException("Values are not comparable");

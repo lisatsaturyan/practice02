@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace practice02
 {
+
     public class Sequence<T> : IEnumerable<T>, ISequence<T>
     {
         private List<T> _items = new List<T>();
-        private IComparer<object>? comparer;
 
         public void Add(T item)
         {
@@ -52,14 +52,9 @@ namespace practice02
             }
         }
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         public IEnumerable<T> RecordoAdelante
@@ -88,7 +83,8 @@ namespace practice02
         {
             get
             {
-                var sortedItems = _items.OrderBy(item => item, comparer);
+                var sortedItems = new List<T>(_items);
+                sortedItems.Sort();
                 foreach (var item in sortedItems)
                 {
                     yield return item;
@@ -108,8 +104,6 @@ namespace practice02
                 }
             }
         }
-
-        
-
     }
 }
+
