@@ -1,11 +1,15 @@
 ﻿using practice02;
+using practice02.PSS.lisatsaturyan.Practice02;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace practice02
 {
     public class Sequence<T> : IEnumerable<T>, ISequence<T>
     {
         private List<T> _items = new List<T>();
+        private IComparer<object>? comparer;
 
         public void Add(T item)
         {
@@ -84,8 +88,7 @@ namespace practice02
         {
             get
             {
-                var sortedItems = new List<T>(_items);
-                sortedItems.Sort();
+                var sortedItems = _items.OrderBy(item => item, comparer);
                 foreach (var item in sortedItems)
                 {
                     yield return item;
@@ -105,5 +108,8 @@ namespace practice02
                 }
             }
         }
+
+        
+
     }
 }
