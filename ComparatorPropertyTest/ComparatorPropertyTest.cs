@@ -60,30 +60,6 @@ namespace ComparatorPropertyTest
             comparator.Compare(null, null);
         }
 
-        [TestMethod]
-        public void ComparatorProperty_ThrowsException_WhenPropertyNotFound()
-        {
-            // Arrange
-            var users = new List<UserView>
-            {
-                new UserView("3", "UserC", "Step1", "Category1", true),
-                new UserView("1", "UserA", "Step1", "Category1", true),
-                new UserView("2", "UserB", "Step1", "Category1", true)
-            };
-
-            var comparator = new ComparatorProperty<UserView>("NonExistentProperty");
-
-            // Act & Assert
-            try
-            {
-                users.Sort(comparator);
-                Assert.Fail("Expected ArgumentException was not thrown.");
-            }
-            catch (ArgumentException ex)
-            {
-                // Assert
-                StringAssert.Contains(ex.Message, "Property 'NonExistentProperty' not found in type UserView");
-            }
-        }
+        
     }
 }

@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace practice02.PSS.lisatsaturyan.Practice02
 {
-    public class UserView : IUserView, IEquatable<UserView>, IEqualityComparer<UserView>, IComparable<UserView>
+    public class UserView : IUserView, IEquatable<UserView>, IEqualityComparer<UserView>, IComparable<UserView>, ISequence<UserView>
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string StepWord { get; set; }
         public string Category { get; set; }
         public bool IsValid { get; set; }
+
+        public int Count => throw new NotImplementedException();
+
+        public UserView this[int i] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public UserView(string id, string name, string stepWord, string category, bool isValid)
         {
@@ -60,6 +64,31 @@ namespace practice02.PSS.lisatsaturyan.Practice02
                 return -1; // Null is always less than non-null
 
             return string.Compare(Id, other.Id, StringComparison.Ordinal);
+        }
+
+        public void Add(UserView item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(UserView item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(UserView item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Sort(IComparer<UserView> comparer)
+        {
+            throw new NotImplementedException();
         }
 
         public static bool operator ==(UserView left, UserView right)

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserViewTest", "UserViewTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectionUserViewTest", "CollectionUserViewTest\CollectionUserViewTest.csproj", "{25D25CF3-0DED-4207-BB69-82A4D1F5F8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComparatorPropertyTest", "ComparatorPropertyTest\ComparatorPropertyTest.csproj", "{B977B87E-6AF1-4821-8367-5B292905CFA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComparatorPropertyTest", "ComparatorPropertyTest\ComparatorPropertyTest.csproj", "{B977B87E-6AF1-4821-8367-5B292905CFA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequenceTest", "SequenceTest\SequenceTest.csproj", "{52F01EEB-AA19-406C-8285-E510B784DCF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B977B87E-6AF1-4821-8367-5B292905CFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B977B87E-6AF1-4821-8367-5B292905CFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B977B87E-6AF1-4821-8367-5B292905CFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F01EEB-AA19-406C-8285-E510B784DCF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F01EEB-AA19-406C-8285-E510B784DCF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F01EEB-AA19-406C-8285-E510B784DCF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F01EEB-AA19-406C-8285-E510B784DCF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
